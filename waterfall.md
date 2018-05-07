@@ -40,7 +40,8 @@ FROM (
     SELECT 'End', 0, @_pre_funded,0
 ) AS x
 ```
-Caveats:
+**Caveats:**
+
 MySQL user-defined variables have a dynamic typing, you can not explicitly declare their data types, 
 and the CAST() does not work all the time on these variables.
 
@@ -63,7 +64,8 @@ PDI as data source can provide more flexibility than the PRD's query engine
   using some tricks in PRD, multi-select parameters chould be possible, but need
   to make sure escapling properly to avoid SQL parsing mistake or enjection
 
-Below is the Howto:
+**Below is the Howto:**
+
 1. From main menu, Edit -> Settings... -> Parameters
    Add necessary parameters, in our example, add: ph_start_date, ph_end_date, p_country and p_product_type
    set up default value so you can debug the transform.
@@ -113,8 +115,8 @@ this step is optional, in case you want to enforce data types or rename fields.
 
 5. save the Ktr and run to check the returning dataset.
 
+**On the PRD end**
 
-On the PRD end,
 1. Add the ktr as a Resource:
    + From main menu: File -> Resources... -> Import 
    + Add the ktr script created above and name it for example 'get_amount'
