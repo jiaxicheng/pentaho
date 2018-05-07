@@ -126,7 +126,7 @@ this step is optional, in case you want to enforce data types or rename fields.
    + From main menu, Data -> Add Datasource -> Pentaho Data Integration
    + Click the '+' button to add a new query
    + In the File box, enter the resouce name 'get_amount'
-   + All 3 steps now should shown in the Steps box, select 'Select values'
+   + All 3 steps now should show in the `Steps` box, select 'Select values'
    + click 'Edit Parameter' to map parameters from PRD to PDI
 
 3. Under the 'Data' tab of the main window, right click on the newly defined data source
