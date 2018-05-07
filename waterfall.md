@@ -65,7 +65,14 @@ PDI as data source can provide more flexibility than the PRD's query engine
   to make sure escapling properly to avoid SQL parsing mistake or enjection
 
 **Below is the Howto:**
-
+```
+    +-------------+      +----------------------------+
+    | Table Input |----->| Modified Java Script Value | 
+    +-------------+      +----------------------------+
+                                       |                   +---------------+
+                                       +-----------------> | Select values |
+                                                           +---------------+
+```
 1. From main menu, Edit -> Settings... -> Parameters
    Add necessary parameters, in our example, add: ph_start_date, ph_end_date, p_country and p_product_type
    set up default value so you can debug the transform.
