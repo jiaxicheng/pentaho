@@ -56,7 +56,7 @@ matches what we need in Pentaho.
 ### Using PDI as data source ###
 
 PDI as data source can provide more flexibility than the PRD's query engine
-+ 'Table Input' step can take everything as parameters while in PRD, table
++ `Table Input` step can take everything as parameters while in PRD, table
   names, keywords can not be parameterized, this makes something like order
   by <col-name> impossible (you can still order by <index-id> where index-id 
   aligned to the position in the SELECT list)
@@ -70,7 +70,7 @@ PDI as data source can provide more flexibility than the PRD's query engine
    Add necessary parameters, in our example, add: ph_start_date, ph_end_date, p_country and p_product_type
    set up default value so you can debug the transform.
 
-2. In the 'Table Input' step, add connection and then the following SQL:
+2. In the `Table Input` step, add connection and then the following SQL:
 ```
 SELECT x.funding_month
 ,      x.amt_funded
@@ -95,7 +95,7 @@ the result by default, adding `ORDER BY NULL` will disable the sorting.
 
 make sure to tick: Replace variables in script?
 
-3. Add 'Modified Java Script Value' step with the following code:
+3. Add `Modified Java Script Value` step with the following code:
 
 ```
 var delta_funded = amt_funded - (prev_funded||0);
@@ -110,7 +110,7 @@ have the funded_amount set to zero at 'End'
 Click 'Get variables' button at the bottom and make sure the Fields added have proper types, i.e. "Number"  
 with Length = 12 and recision= 2
 
-4. Add a 'Select values' step
+4. Add a `Select values` step
 this step is optional, in case you want to enforce data types or rename fields.
 
 5. save the Ktr and run to check the returning dataset.
