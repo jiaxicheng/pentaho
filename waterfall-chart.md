@@ -1,14 +1,14 @@
 ## Creating Waterfall chart ##
 
-The waterfall chart is a nice way to show the amout increment/decrement over time periods.
-Example shows waterfall charts by Pentaho [CDE](https://github.com/jiaxicheng/pentaho/blob/master/images/pentaho_waterfall-cde.jpg) and [PRD](https://github.com/jiaxicheng/pentaho/blob/master/images/pentaho_waterfall-prd.jpg). 
+The waterfall chart is a good way to show the amount increment/decrement over time periods.
+Example shows waterfall charts by Pentaho 
+By CDE:
+![CDE](images/pentaho_waterfall-cde.jpg)
+By PRD:
+![PRD](images/pentaho_waterfall-prd.jpg)
 
-For N observations, it starts from an initial abosolute amount and then shows the amount differences over 
-the next N-2 points thus you can have a view on which month has upsale or downsale and performance
-based on the incresement/decresement are very clear. The last point 'N' will show the final abosolute amount
-so you can compare start/end points on the abosolte values (not delta)
-
-For the amount used in waterfall chart, we will need to calculate the numbers differently
+For the amount used in waterfall chart, preparing data is most important part. 
+we will need to calculate the numbers differently
 between the start/end points and the rest. With Pentaho, we can have different ways:
 
 ### Using MySQL User-defined Variables ###
@@ -118,7 +118,7 @@ with Length = 12 and recision= 2
 4. Add a `Select values` step
 this step is optional, in case you want to enforce data types or rename fields.
 
-5. save the Ktr and run to check the returning dataset.
+5. save the Ktr and run the transform to make sure it returns expected dataset.
 
 **On the PRD end**
 
@@ -137,8 +137,10 @@ this step is optional, in case you want to enforce data types or rename fields.
 3. Under the 'Data' tab of the main window, right click on the newly defined data source
    named 'Query-1' and then select 'Select Query'. now this data source will become the main
    data source. you can verify this from 'Structure' tab -> 'Attributes' tab -> 'query' section -> 'name' attribute
+
 4. drag the `chart` icon from the left-side toolbar onto 'Report Header', double-click 
    the chart and in the 'Edit Chart' dialogue, select 'Waterfall Chart(Image)'
+
 5. setup the following two major items:
    + category-column: the horizontal-axis --> loan_month
    + value-columns: the numbers for the vertical axis --> delta_amount
