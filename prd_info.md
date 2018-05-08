@@ -1,8 +1,8 @@
 ## Pentaho Report Designer (PRD): ##
 
 If you are looking for fancy UIs, PRD is probably not your solution. However, if you
-care more about data, the productivity and simplicity, Pentaho report designer
-absolutely deservers some of your time. It's especially well designed for the backend developers
+care only about data, the productivity and simplicity, Pentaho report designer
+will deserver some of your time. It's especially well designed for the backend developers
 who can thus save tons of loads from preparing ad-hoc reports.
 
 * PRD is perfect for a listing report, knowing the basic `layout` design, editing PRD
