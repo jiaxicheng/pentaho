@@ -2,9 +2,11 @@
 
 The waterfall chart is a good way to show the amount increment/decrement over time periods.
 Example shows waterfall charts by Pentaho 
-By CDE:
+
+**With CDE (Community Dashbord Editer, Pentaho BA server 8.0):**
 ![CDE](images/pentaho_waterfall-cde.jpg)
-By PRD:
+
+**With PRD (Pentaho report designer, CE 8.0):**
 ![PRD](images/pentaho_waterfall-prd.jpg)
 
 For the amount used in waterfall chart, preparing data is most important part. 
