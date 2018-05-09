@@ -81,6 +81,13 @@ Select the following options:
    + Variable substitution
 in the `Parameters` box, add `Id`
 
+**Note:**
+
+The list of mapping can also be saved from database table, text file etc. for example
+using a CSV file to save the list on the local, then `Text Input` step to read the list.
+This way, whenever you need to add a new object or modify existing object, you don't have 
+to open kettles and edit the ktr transformation. The downside is that you will need to
+have this CSV file whereever you run your kjb script. 
 
 ### Note: ###
 Pentaho supports database clustering so that the same Pentaho job/transformation can be used to
