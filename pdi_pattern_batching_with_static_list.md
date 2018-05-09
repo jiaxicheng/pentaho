@@ -77,8 +77,9 @@ Set up the connection and then the following SQL:
 UPDATE salesforce.${sf_object_table_name} SET is_deleted = 1 WHERE ${sf_object_id_name} = '?';
 ```
 Select the following options:
-   + Execute for each row?
-   + Variable substitution
+   [x] Execute for each row?
+   [x] Variable substitution
+
 in the `Parameters` box, add `Id`
 
 **Note:**
