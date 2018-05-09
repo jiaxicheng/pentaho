@@ -36,8 +36,9 @@ and then you can update the warehouse database or feed the data directly into bu
 (in PRD or CDE). 
 
 **Some interesting topics**
-1. [Batching PRPT reports](pdi_automate_prd_reports.md)
-2. [Creating waterfall chart](prd_pdi_waterfall-chart.md)
+1. [Pattern-1: Batch Similar Tasks with Static List](pdi_pattern_batching_with_static_list.md)
+2. [Pattern-2: Batch PRD Reports using Parameters](pdi_pattern_automate_with_parameters.md)
+3. [Creating waterfall chart](prd_pdi_waterfall-chart.md)
 
 
 
