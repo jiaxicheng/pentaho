@@ -42,11 +42,5 @@ and then you can update the warehouse database or feed the data directly into bu
 4. [Data Deduplication Using Fuzzy Match Method](pdi_fuzzy_match.md)
 5. [Running Transformation Remotely](pdi_remote_execution.md)
 
-**TODO List:**
-1. Setting up Spark Engine for PDI 7.1+, this is not urgent as I am processing most Hadoop 
-   dataset with Hive or Spark thriftserver. will discover more details on my next related projects.
-2. `Data Service` is one thing could be very useful in protecting data, need some testing.
-3. Hadoop cluster with authentication (Kerberos or else).
-
 More coming soon...
 
