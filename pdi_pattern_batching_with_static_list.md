@@ -1,4 +1,4 @@
-## Pattern-1: Batch Similar tasks with Static List ##
+## Pattern-1: Batch Similar Tasks with Static List ##
 
 Using `Data Grid` step to save a list of static mapping of the name/id from different objects 
 on different storages. Run a generalized transformation which takes this list as parameter 
@@ -72,7 +72,7 @@ In the `Fields` tab, specify the `Id` retrieved from the SOQL.
 2. The 2nd is to execute the SQL to update warehouse DB (MySQL)
 Set up the connection and then the following SQL:
 ```
-DELETE FROM salesforce.${sf_object_table_name} WHERE ${sf_object_id_name} = '?';
+UPDATE salesforce.${sf_object_table_name} SET is_deleted = 1 WHERE ${sf_object_id_name} = '?';
 ```
 Select the following options:
    + Execute for each row?
