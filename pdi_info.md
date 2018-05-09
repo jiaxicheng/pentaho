@@ -35,11 +35,11 @@ Basically almost all data sources that provide a JDBC driver can be connected in
 and then you can update the warehouse database or feed the data directly into business reports
 (in PRD or CDE). 
 
-**Some interesting topics**
+**Some topics**
 1. [Pattern-1: Batch Similar Tasks with Static List](pdi_pattern_batching_with_static_list.md)
 2. [Pattern-2: Batch PRD Reports using Parameters](pdi_pattern_automate_with_parameters.md)
 3. [Creating waterfall chart](prd_pdi_waterfall-chart.md)
-
+4. [Data Deduplication Using Fuzzy Match Method](pdi_fuzzy_match.md)
 
 
 **TODO List:**
