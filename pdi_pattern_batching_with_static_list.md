@@ -32,6 +32,10 @@ following is the Pentaho kjb script:
 **Note:** On the job entry `Transform: Delete entries in DB`, double-click and setup the following:
 + In the `Options` tab: Execute every input row
 + In the `Parameters` tab, pass parameter values to sub transformation, add the following:
+  + salesforce_object_name
+  + sf_object_table_name
+  + sf_object_id_name
+   
 
 
 ### Transform: Get a list of Object ###
@@ -43,19 +47,17 @@ following is the Pentaho kjb script:
 ```
 
 In this transformation, we setup two steps: 
-+ `Data Grid` step to save a static table with three fields:
-   + salesforce_object_name
-   + sf_object_table_name
-   + sf_object_id_name
-For each salesforce object(Account, Lead, Contact, Opportunity, Task etc), fill in one entry for the 
-above information.
++ `Data Grid` step to save a static table with three fields mentioned before: `salesforce_object_name`
+   , `sf_object_table_name` and `sf_object_id_name`. For each salesforce object(Account, Lead, Contact
+   , Opportunity, Task etc), fill in one entry for the three fields
 
-+ `Copy rows to result` step
-this is a common way to pass data rows to the later job entries
++ `Copy rows to result` step: this is a common way to pass data rows to the later job entries
 
 ### Transform: Delete entries in DB ###
 
 There are two steps, see below:
+In the main menu, select 'Edit' --> 'Settings...' --> 'Parameters' tab, add the parameters
+including all fieldname configured in the `Data Grid` step
   
 ```
    +--------------------------------------+      +--------------------+
@@ -69,7 +71,7 @@ In the "Settings" tab, select Specify query:
 ```
 In the `Fields` tab, specify the `Id` retrieved from the SOQL.
 
-2. The 2nd is to execute the SQL to update warehouse DB (MySQL)
+2. The 2nd is running `Execute SQL script` step to update warehouse DB (MySQL)
 Set up the connection and then the following SQL:
 ```
 UPDATE salesforce.${sf_object_table_name} SET is_deleted = 1 WHERE ${sf_object_id_name} = '?';
