@@ -84,7 +84,7 @@ in the `Parameters` box, add `Id`
 
 **Note:**
 
-The list of mapping can also be saved from database table, text file etc. for example
+The list of mapping can also be saved in database table, text file etc. for example
 using a CSV file to save the list on the local, then `Text Input` step to read the list.
 This way, whenever you need to add a new object or modify existing object, you don't have 
 to open kettles and edit the ktr transformation. The downside is that you will need to
