@@ -20,8 +20,8 @@ who can thus save tons of loads from preparing ad-hoc reports.
 
 **Some interesting topics:**
 
-1. [calculate median wthin PRD](prd_calculate_median.md)
-
+1. [Calculate median wthin PRD](prd_calculate_median.md)
 2. [Creating waterfall chart](prd_pdi_waterfall-chart.md)
+3. [Datetime Calculations](prd_datetime_related.md)
 
 [ONGOING...]
