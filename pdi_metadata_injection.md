@@ -103,6 +103,6 @@ and the resulting crosstab table can be used to make a heat grid map, see an exa
 **Note:** check the [official document](https://help.pentaho.com/Documentation/8.0/Products/Data_Integration/Transformation_Step_Reference/ETL_Metadata_Injection/Steps_Supporting_MDI) 
 to see which steps support Metadata Injection.
 
-The example transformations (ktr) in this page can also be downloaded:[etl_metadata_injection_example.tgz](etl_metadata_injection_example.tgz).
+The example transformations (ktr) in this page can also be downloaded:[etl_metadata_injection_example.tgz](images/etl_metadata_injection_example.tgz).
 
 
