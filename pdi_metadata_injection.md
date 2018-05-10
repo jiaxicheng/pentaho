@@ -46,7 +46,9 @@ $ cat field_config.yaml
 In both YAML Input step, do the following:
 + In the 'File' tab, browse and add the yaml file defined above:
 
-**Note** the file-path of the YAML configuration files can be parameterized, this will add 
+**Note:** 
+
+the file-path of the YAML configuration files can be parameterized, this will add 
 more flexibility when running on different vendors. No need to use fixed name on these configuration files.
 
 + In the 'Fields' tab, click 'Get fields', and take this default
@@ -54,6 +56,7 @@ more flexibility when running on different vendors. No need to use fixed name on
 In the `JSON Input` step followed the `YAML Input: field definitions` step:
 + From the `File` tab, select the following:
   + [x] Source is from a previous step
+
   and Select field => `Value`   <-- default name from the above step
 
 + From the `Fields` tab, set up the fields with JSONPath:
@@ -71,17 +74,18 @@ In the `JSON Input` step followed the `YAML Input: field definitions` step:
 In the `ETL Metadata Injection` step
 
 Added the template transformation in the field 'Transformations:',
-all the fields which can be injected will be shown in the box under 'Inject Metadata' tab:
+all the steps and fields which can be injected in the template transformation will be listed 
+under the 'Inject Metadata' tab:
 
 Now you have all the fields defined in step_config.yaml and the 3 new fields defined above
-in the PDI flow, you can use these fields to fill in the Inject Metadata tabs
-in `ETL Metadata Injection` step
+in the PDI flow, you can use these fields to fill in the meta data. see attached zip files
+for all configurations.
 
 
 ### Template Transformation ###
 
 The template transformation is very simple, just 3 steps and nothing to setup, all will be
-specified through the ETL metadata enjection step mentioned above.
+specified through the ETL metadata Injection step mentioned above.
 
 ```
    +-----------------+      +---------------+      +------------------------+
