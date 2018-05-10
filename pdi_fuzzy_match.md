@@ -57,5 +57,5 @@ copies (depends on the server resources) of the Steps at the same time:
 **Note**: Fuzzy match step only starts to work after the LookUp step is completed.
 
 This method is more durable and useful than the double-metahone method we applied before.
-Again, this approach can both scale up and scale out well to handle the growing dataset. 
+Meanwhile this approach can both scale up and scale out well to handle the growing dataset. 
 
