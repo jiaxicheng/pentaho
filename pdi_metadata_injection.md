@@ -1,13 +1,14 @@
 ## ETL Metadata Injection: Reuse Transformation templates ##
 
 There are situations when you want to re-use the transformations to handle raw data 
-with the same workflow but different field definition, layouts etc. 
+with the same workflow but different field definitions, layouts etc. 
 For example, to update the a table, you might have raw CSV data from different vendors 
 and each of them provides different column names and layout. To reuse your PDI transformation
 , you can use the `ETL Metadata Injection` step to setup the fields at run time. 
 
-Below is an example to use YAML files to manage the metadata defining fields and
-some step properties. 
+Below is a simple example to use YAML files to manage the metadata which define 
+some fields and step properties, their values might be changed from their default values
+when dealing with data from different sources.
 
 ![ETL Metadata Injection](images/pentaho_etl_metadata_injection.jpg)
 
@@ -15,9 +16,10 @@ some step properties.
 ### YAML Configuration Files ###
 
 In the step_config.yaml file, all properties are on the same row of the PDI flow. 
-In the field_config.yaml file, each field on its own row, `YAML Input` step reader will 
-read the data as an array of hashes, so each row is an hash, i.e. '{Name: date, Type: Date,Format: yyyy-MM-dd}'.
-The result is feed into the `JSON Input` step and convert into columns using JSONPath.
+
+In the field_config.yaml file, each field definition is on its own row, `YAML Input` step 
+reads the data as an array of hashes, so each row is an hash, i.e. '{Name: date, Type: Date,Format: yyyy-MM-dd}'.
+The result is feed into the `JSON Input` step and convert into columns using JsonPath.
 ```
 $ cat step_config.yaml
 ---
@@ -46,18 +48,15 @@ $ cat field_config.yaml
 In both YAML Input step, do the following:
 + In the 'File' tab, browse and add the yaml file defined above:
 
-**Note:** 
-
-the file-path of the YAML configuration files can be parameterized, this will add 
+**Note:** the file-path of the YAML configuration files can be parameterized, this will add 
 more flexibility when running on different vendors. No need to use fixed name on these configuration files.
 
-+ In the 'Fields' tab, click 'Get fields', and take this default
++ In the 'Fields' tab, click 'Get fields', and take all the default.
 
 In the `JSON Input` step followed the `YAML Input: field definitions` step:
-+ From the `File` tab, select the following:
-  + [x] Source is from a previous step
 
-  and Select field => `Value`   <-- default name from the above step
++ From the `File` tab, select the following and the default `Value` from the upstram step.
+  + [x] Source is from a previous step
 
 + From the `Fields` tab, set up the fields with JSONPath:
 ```
@@ -73,7 +72,7 @@ In the `JSON Input` step followed the `YAML Input: field definitions` step:
 ### ETL Metadata Injection ###
 In the `ETL Metadata Injection` step
 
-Added the template transformation in the field 'Transformations:',
+Add the template transformation in the field 'Transformations:',
 all the steps and fields which can be injected in the template transformation will be listed 
 under the 'Inject Metadata' tab:
 
@@ -97,7 +96,7 @@ In the real applications, the last step could be `Table output` step and the lik
 
 
 Another example using `ETL Metadata Injection` is to denormalize the data (Using `Row Denormaliser` step)
-and the result crosstab table can then be used to make a heat grid map, see below example:
+and the resulting crosstab table can be used to make a heat grid map, see an example below:
 
 ![Head Grid Chart](images/pentaho_heat_grid_chart.jpg)
 
