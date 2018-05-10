@@ -43,12 +43,9 @@ $ cat field_config.yaml
   Type: Integer
 ```
 
-**Note** in both `YAML Input` steps, the file-path of the YAML configuration files can
-be parameters, this will add more flexibility when running on different vendors. No need
-to use fixed file names.
-
 In both YAML Input step, do the following:
 + In the 'File' tab, browse and add the yaml file defined above:
+
 **Note** the file-path of the YAML configuration files can be parameterized, this will add 
 more flexibility when running on different vendors. No need to use fixed name on these configuration files.
 
