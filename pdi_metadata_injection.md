@@ -98,7 +98,7 @@ In the real applications, the last step could be `Table output` step and the lik
 Another example using `ETL Metadata Injection` is to denormalize the data (Using `Row Denormaliser` step)
 and the result crosstab table can then be used to make a heat grid map, see below example:
 
-![Head Grid Chart](images/pentaho_head_grid.jpg)
+![Head Grid Chart](images/pentaho_heat_grid_chart.jpg)
 
 **Note:** check the [official document](https://help.pentaho.com/Documentation/8.0/Products/Data_Integration/Transformation_Step_Reference/ETL_Metadata_Injection/Steps_Supporting_MDI) 
 to see which steps support Metadata Injection.
