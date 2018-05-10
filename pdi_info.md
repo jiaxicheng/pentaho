@@ -40,7 +40,6 @@ and then you can update the warehouse database or feed the data directly into bu
 2. [Pattern-2: Batch PRD Reports using Parameters](pdi_pattern_automate_with_parameters.md)
 3. [Creating waterfall chart](prd_pdi_waterfall-chart.md)
 4. [Data Deduplication Using Fuzzy Match Method](pdi_fuzzy_match.md)
-5. [Running Transformation Remotely](pdi_remote_execution.md)
 
 More coming soon...
 
