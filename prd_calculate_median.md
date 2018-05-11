@@ -1,11 +1,11 @@
 ## Calculate medium in PRD ##
 
 Calculating median in MySQL is not a trival task. In PRD, you can get this number
-from PDI data source (i.e. Univariate Statistics) if you need to clalculate a bunch of
+from PDI data source (i.e. Univariate Statistics) if you need to calculate a bunch of
 descriptive statistics. 
 
 The median can also be calculated by using PRD's internal open formula plus the BSF 
-javascript script. This provided another option for more complex calculations.
+Javascript script. This provided another option for more complex calculations.
 
 **See below Howto:**
 
@@ -17,14 +17,14 @@ AND loan_date <= ${p_end_date}
 ORDER BY loan_amount
 ```
 
-2. Create a open formula named: `amt_list`, this will put the above sorted list of 
+2. Create an open formula named: `amt_list`, this will put the above sorted list of 
 amounts into a line of comma-delimited text.
 ```
 =CSVTEXT(MULTIVALUEQUERY("list_of_loan_amt");;",")
 ```
 
-3. Create a "Bean-Scripting Framework(BSF) function(in javascript): f_median
-split the text and calculate median.
+3. Create a `Bean-Scripting Framework`(BSF) function (in javascript) named `f_median`
+to split the text and calculate median.
 ```
 var records = dataRow.get("amt_list").split(",");
 var half = Math.floor(records.length/2);
@@ -35,5 +35,5 @@ else
 
 ```
 
-This is also an good example how to use BSF script and connect datarow using dataRow.get() method.
+This is also an good example how to use BSF script and connect data rows using dataRow.get() method.
 The same method can be extended to do calculations with more complexed logic within PRD itself.

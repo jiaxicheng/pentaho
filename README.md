@@ -7,9 +7,9 @@ presentation tasks for the business data warehousing and reporting needs.
  ETL data pipelines, data warehousing, cleansing and big data etc. 
 
 2. [Pentaho Report Designer (PRD)](prd_info.md):
- Creating and publishing BI reports (KPIs, cashflow etc) and general-purpose business reports 
- (merchant statments, commissions etc.)
+ Creating and publishing BI reports (KPIs, cashflow etc.) and general-purpose business reports 
+ (merchant statements, commissions etc.)
 
-3. Pentaho BA server is a Java/Tomcat based web application which can run at any
+3. Pentaho BA server is a Java/Tomcat based web application which can run almost at any
 system with proper version of JDK installed. 
 

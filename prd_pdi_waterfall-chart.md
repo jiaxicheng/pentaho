@@ -47,12 +47,12 @@ FROM (
 MySQL user-defined variables have a dynamic typing, you can not explicitly declare their data types, 
 and the CAST() does not work all the time on these variables.
 
-In the above SQL, the outerside temporary table-x is to resolve a problem that 
+In the above SQL, the temporary table-x is to resolve a problem that 
 MySQL forces the delta_loan as 'String' and using CAST( AS DECIMAL(12,2)) 
 does not work directly.
 
 The data types are not an issue with MySQL older version 5.0 and 5.1.  Newer
-version have more strict type checking and you must make sure data types
+versions have more strict type checking and you must make sure data types
 matches what we need in Pentaho.
 
 ### Using PDI as data source ###
@@ -63,8 +63,8 @@ PDI as data source can provide more flexibility than the PRD's query engine
   by <col-name> impossible (you can still order by <index-id> where index-id 
   aligned to the position in the SELECT list)
 + With PDI as data source, by default, you should not include multi-select parameters.
-  using some tricks in PRD, multi-select parameters chould be possible, but need
-  to make sure escapling properly to avoid SQL parsing mistake or enjection
+  Using some tricks in PRD, multi-select parameters are possible, but need
+  to make sure escaping properly to avoid SQL parsing mistake or injection.
 
 **Below is the Howto:**
 ```
@@ -77,7 +77,7 @@ PDI as data source can provide more flexibility than the PRD's query engine
 ```
 1. From main menu, Edit -> Settings... -> Parameters
    Add necessary parameters, in our example, add: ph_start_date, ph_end_date, p_country and p_product_type
-   set up default value so you can debug the transform.
+   . Do set up default value so you can debug the transform.
 
 2. In the `Table Input` step, add connection and then the following SQL:
 ```
@@ -100,7 +100,8 @@ SELECT 'End', 0
 **Note:** we want the first month shown as 'Start' and ordered as the first one, `GROUP BY` sorts
 the result by default, adding `ORDER BY NULL` will disable the sorting.
 
-make sure to tick: Replace variables in script?
+Select the following checkbox:
+* [x] Replace variables in script?
 
 3. Add `Modified Java Script Value` step with the following code:
 
@@ -115,12 +116,12 @@ At the last entry, delta_loan should be the actual amount(-delta_loan) since we
 have the loan_amount set to zero at 'End'
 
 Click 'Get variables' button at the bottom and make sure the Fields added have proper types, i.e. "Number"  
-with Length = 12 and recision= 2
+with Length = 12 and Precision= 2
 
 4. Add a `Select values` step
-this step is optional, in case you want to enforce data types or rename fields.
+This step is optional, in case you want to enforce data types or rename fields.
 
-5. save the Ktr and run the transform to make sure it returns expected dataset.
+5. Save the Ktr and run the transform to make sure it returns expected dataset.
 
 **On the PRD end**
 
@@ -138,11 +139,11 @@ this step is optional, in case you want to enforce data types or rename fields.
 
 3. Under the 'Data' tab of the main window, right click on the newly defined data source
    named 'Query-1' and then select 'Select Query'. now this data source will become the main
-   data source. you can verify this from 'Structure' tab -> 'Attributes' tab -> 'query' section -> 'name' attribute
+   data source. You can verify this from 'Structure' tab -> 'Attributes' tab -> 'query' section -> 'name' attribute
 
-4. drag the `chart` icon from the left-side toolbar onto 'Report Header', double-click 
+4. Drag the `chart` icon from the left-side toolbar onto 'Report Header', double-click 
    the chart and in the 'Edit Chart' dialogue, select 'Waterfall Chart(Image)'
 
-5. setup the following two major items:
+5. Setup the following two major items:
    + category-column: the horizontal-axis --> loan_month
    + value-columns: the numbers for the vertical axis --> delta_amount

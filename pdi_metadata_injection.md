@@ -15,13 +15,13 @@ when dealing with data from different sources.
 
 ### YAML Configuration Files ###
 
-In the step_config.yaml file, all properties are on the same row of the PDI flow. 
+In the step_config.yml file, all properties are on the same row of the PDI flow. 
 
-In the field_config.yaml file, each field definition is on its own row, `YAML Input` step 
+In the field_config.yml file, each field definition is on its own row, `YAML Input` step 
 reads the data as an array of hashes, so each row is an hash, i.e. '{Name: date, Type: Date,Format: yyyy-MM-dd}'.
 The result is feed into the `JSON Input` step and convert into columns using JsonPath.
 ```
-$ cat step_config.yaml
+$ cat step_config.yml
 ---
 csv_field_delimiter: ','
 csv_field_enclosed: '"'
@@ -36,7 +36,7 @@ csv_include_subfolder: N
 xls_output_filepath: '${Internal.Entry.Current.Directory}\file.xls'
 xls_no_file_at_start: Y
 
-$ cat field_config.yaml
+$ cat field_config.yml
 ---
 - Name: date
   Type: Date
@@ -46,7 +46,7 @@ $ cat field_config.yaml
 ```
 
 In both YAML Input step, do the following:
-+ In the 'File' tab, browse and add the yaml file defined above:
++ In the 'File' tab, browse and add the YAML file defined above:
 
 **Note:** the file-path of the YAML configuration files can be parameterized, this will add 
 more flexibility when running on different vendors. No need to use fixed name on these configuration files.
@@ -55,7 +55,7 @@ more flexibility when running on different vendors. No need to use fixed name on
 
 In the `JSON Input` step followed the `YAML Input: field definitions` step:
 
-+ From the `File` tab, select the following and the default `Value` from the upstram step.
++ From the `File` tab, select the following and the default `Value` from the upstream step.
   + [x] Source is from a previous step
 
 + From the `Fields` tab, set up the fields with JSONPath:
@@ -76,8 +76,8 @@ Add the template transformation in the field 'Transformations:',
 all the steps and fields which can be injected in the template transformation will be listed 
 under the 'Inject Metadata' tab:
 
-Now you have all the fields defined in step_config.yaml and the 3 new fields defined above
-in the PDI flow, you can use these fields to fill in the meta data. see attached zip files
+Now you have all the fields defined in step_config.yml and the 3 new fields defined above
+in the PDI flow, you can use these fields to fill in the metadata, see attached zip files
 for all configurations.
 
 

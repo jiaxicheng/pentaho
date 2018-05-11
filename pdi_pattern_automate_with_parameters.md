@@ -16,7 +16,7 @@ see below PDI job entries for the data flow:
 
 **Note:**
 
-+ configuration files are maintained externally with templates like __START_DATA__
++ Configuration files are maintained externally with templates like __START_DATA__
 __END_DATE__ which will be replaced accordingly in `Modified Java Script value` Step
 ```
 SELECT 0 AS sales_rep_id, 'All' AS sales_rep
@@ -37,7 +37,7 @@ AND f.id IN ( SELECT distinct r.loan_id
 )
 ```
 
-+ parameters (start_date, end_date, office, provider etc.) will be specified on the
++ Parameters (start_date, end_date, office, provider etc.) will be specified on the
   command line.
 
 
@@ -66,7 +66,7 @@ Setup this as a JVM variable so that it can be retrieved in the `Table Input` st
 `Execute row SQL script` step to run the SQL save in a row field.
 
 ### Steps to Run the SQL and get a list of reps ###
-Use the variable defind in JVM from the above steps in `Table Input` step
+Use the variable defined in JVM from the above steps in `Table Input` step
 
 ```
   +-------------+      +---------------------+
@@ -83,8 +83,8 @@ his/her own report.
   +----------------------+      +----------------------------+      +--------------------------+
 ```
 
-in `Modified Java Script Value step`, we setup PRPT filename and exported Excel filename, 
-and parameters required to run the prpt reports with proper data type.
+In `Modified Java Script Value step`, we setup PRPT filename, exported Excel filename and
+all parameters required to run the PRPT reports with proper data type.
 
 ```
 var prpt_filename = getEnvironmentVar("rpt_file");
@@ -100,8 +100,9 @@ var reseller_id = sales_rep_id.getNumber();
 ```
 
 ### bash script to batch all reports ###
-Use a Linux TUI interface tool `dialog`, the pentaho reports can be generated
-directly on the command line, the files are grouped into provider and
+Use a Linux TUI interface tool `dialog`, the Pentaho reports can be generated
+directly on the command line, the files are grouped into providers and date ranges.
+Below is the trimmed version of the script:
 
 ```
 #!/bin/bash

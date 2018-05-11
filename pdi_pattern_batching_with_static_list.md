@@ -5,19 +5,19 @@ on different storages. Run a generalized transformation which takes this list as
 to handle the tasks.
 
 In this example, we use one PDI job to update a flag `is_deleted` from all concerned Salesforce objects
-to their related warehosue database.
+to their related warehouse database.
 
 Target:
-1. Set up a list of Salesforce Objects, their correponding table name in warehouse DB
+1. Set up a list of Salesforce Objects, their corresponding table names in warehouse DB
    the ID name used in the MySQL table.
 
 2. For each object, retrieve all IDs which was labelled as 'IsDeleted' from Salesforce
 
-3. update related table in warehoue database based on the list in (1)
+3. Update related table in warehouse database based on the list in (1)
 
 **The Pentaho jobs**
 
-following is the Pentaho kjb script:
+The following is the Pentaho kjb script:
 
 ```
    +-------+      +---------------------------------+
@@ -48,8 +48,8 @@ following is the Pentaho kjb script:
 
 In this transformation, we setup two steps: 
 + `Data Grid` step to save a static table with three fields mentioned before: `salesforce_object_name`
-   , `sf_object_table_name` and `sf_object_id_name`. For each salesforce object(Account, Lead, Contact
-   , Opportunity, Task etc), fill in one entry for the three fields
+   , `sf_object_table_name` and `sf_object_id_name`. For each salesforce object (Account, Lead, Contact
+   , Opportunity, Task etci.), fill in one entry for the three fields
 
 + `Copy rows to result` step: this is a common way to pass data rows to the later job entries
 
@@ -80,7 +80,7 @@ Select the following options:
 * [x] Execute for each row?
 * [x] Variable substitution
 
-in the `Parameters` box, add `Id`
+In the `Parameters` box, add `Id`
 
 **Note:**
 
@@ -88,12 +88,12 @@ The list of mapping can also be saved in database table, text file etc. for exam
 using a CSV file to save the list on the local, then `Text Input` step to read the list.
 This way, whenever you need to add a new object or modify existing object, you don't have 
 to open kettles and edit the ktr transformation. The downside is that you will need to
-have this CSV file whereever you run your kjb script. 
+have this CSV file wherever you run your kjb script. 
 
 ### Note: ###
 Pentaho supports database clustering so that the same Pentaho job/transformation can be used to
-update multiple DB servers at the same time. this is very useful when you need to retrieve data 
-from a third party API and dont want the overhead to run the same data multiple times.
+update multiple DB servers at the same time. This is very useful when you need to retrieve data 
+from a third party API and don't want the overhead to run the same data multiple times.
 
 Click the 'Edit...' button to enter the Database Connection dialog, Click `Clustering` in the Left-top box
 click 'Enable Clustering', add the entry here. All connection must be using the 'Native (JDBC)' as the Access
