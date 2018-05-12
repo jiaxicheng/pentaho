@@ -60,13 +60,16 @@ In the `JSON Input` step followed the `YAML Input: field definitions` step:
 
 + From the `Fields` tab, set up the fields with JSONPath:
 ```
-   +--------------+----------+--------+
-   | Name         | Path     | Type   |
-   +--------------+----------+--------+
-   | field_name   | $.Name   | String |
-   | field_format | $.Format | String |
-   | field_type   | $.Type   | String |
-   +--------------+----------+--------+
+   +-----------------+-------------+--------+
+   | Name            | Path        | Type   |
+   +-----------------+-------------+--------+
+   | field_name      | $.Name      | String |
+   | field_format    | $.Format    | String |
+   | field_type      | $.Type      | String |
+   | field_rename_to | $.RenameTo  | String |
+   | field_length    | $.Length    | String |
+   | field_precision | $.Precision | String |
+   +-----------------+-------------+--------+
 
 ```
 ### ETL Metadata Injection ###
@@ -79,7 +82,6 @@ under the 'Inject Metadata' tab:
 Now you have all the fields defined in step_config.yml and the 3 new fields defined above
 in the PDI flow, you can use these fields to fill in the metadata, see attached zip files
 for all configurations.
-
 
 ### Template Transformation ###
 
