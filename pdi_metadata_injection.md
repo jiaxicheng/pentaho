@@ -1,14 +1,14 @@
 ## ETL Metadata Injection: Reuse Transformation templates ##
 
-There are situations when you want to re-use the transformations to handle raw data 
+There are situations when you want to re-use the transformation to handle raw data 
 with the same workflow but different field definitions, layouts etc. 
-For example, to update the a table, you might have raw CSV data from different vendors 
+For example, to update a table, you might have raw CSV data from different vendors 
 and each of them provides different column names and layout. To reuse your PDI transformation
-, you can use the `ETL Metadata Injection` step to setup the fields at run time. 
+, you can combine the `ETL Metadata Injection` step to specify the changing metadata at run time. 
 
-Below is a simple example to use YAML files to manage the metadata which define 
-some fields and step properties, their values might be changed from their default values
-when dealing with data from different sources.
+Below is a simple example to use YAML files to manage the concerned information which defines 
+field names and some step properties. The configurations could be adjusted without openning
+the PDI program (spoon.bat or spoon.sh).
 
 ![ETL Metadata Injection](images/pentaho_etl_metadata_injection.jpg)
 
@@ -18,8 +18,8 @@ when dealing with data from different sources.
 In the step_config.yml file, all properties are on the same row of the PDI flow. 
 
 In the field_config.yml file, each field definition is on its own row, `YAML Input` step 
-reads the data as an array of hashes, so each row is an hash, i.e. '{Name: date, Type: Date,Format: yyyy-MM-dd}'.
-The result is feed into the `JSON Input` step and convert into columns using JsonPath.
+reads the data as an array of hashes, and each row is an hash, i.e. '{Name: date, Type: Date,Format: yyyy-MM-dd}'.
+The result is feed into the `JSON Input` step and converted into separate columns using JsonPath.
 ```
 $ cat step_config.yml
 ---
@@ -45,13 +45,13 @@ $ cat field_config.yml
   Type: Integer
 ```
 
-In both YAML Input step, do the following:
+In both YAML Input steps, do the following:
 + In the 'File' tab, browse and add the YAML file defined above:
 
-**Note:** the file-path of the YAML configuration files can be parameterized, this will add 
+**Note:** the file-path of the YAML configuration files can be parameterized, this adds 
 more flexibility when running on different vendors. No need to use fixed name on these configuration files.
 
-+ In the 'Fields' tab, click 'Get fields', and take all the default.
++ In the 'Fields' tab, click 'Get fields', and take the default.
 
 In the `JSON Input` step followed the `YAML Input: field definitions` step:
 
