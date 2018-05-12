@@ -41,8 +41,12 @@ $ cat field_config.yml
 - Name: date
   Type: Date
   Format: yyyy-MM-dd
+  RenameTo: entrydate
 - Name: cnt_perchansed
   Type: Integer
+  RenameTo: number_of_deals
+  Length: 3
+  Precision: 0
 ```
 
 In both YAML Input steps, do the following:
