@@ -1,23 +1,29 @@
-## Pattern-2: Batch PRD reports Using Parameters ##
+## Pattern-2: Batch PRD reports by Using Parameters ##
 
-The core target is to automate Pentaho reports using PDI job/transformations
-with parameters: i.e. different offices, providers and reseller
-affiliations etc.
+Using parameters is one of the most effective ways in Pentaho PDI to reuse
+the same transformation or job on multiple instances with similar workflow. 
 
-The main steps including:
-1. Load the configuration file (different targets might have different configuration file) 
-   into memory, do some string REPLACEMENT to get the final SQL and save it as a variable 
-   in the JVM
-2. Run the SQL to retrieve the list of sales reps
-3. Run the `Pentaho Reporting Output` step with the given parameters.
+The core target of this task is to automate Pentaho reports using PDI job and transformations,
+with parameters to set up different offices, providers and reseller affiliations etc.
 
-see below PDI job entries for the data flow:
+The main steps include:
+1. Load the configuration file (different offices have different configuration files) into the stream
+2. Do some string REPLACEMENT to convert it into valid SQL
+3. Run the SQL to retrieve a list of sales_reps
+4. Run the `Pentaho Reporting Output` step for each sales_rep and the corresponding parameters
+
+See below PDI job entries for the data flow:
 ![PDI job entries](images/pentaho_automate_prpt.jpg)
 
 **Note:**
 
++ Parameters (start_date, end_date, office, provider etc.) are specified on the
+  command line and saved in environment variables in the PDI job JVM.
+
 + Configuration files are maintained externally with templates like __START_DATA__
-__END_DATE__ which will be replaced accordingly in `Modified Java Script value` Step
+__END_DATE__ which will be replaced by environment variables in the 
+`Modified Java Script value` Step
+
 ```
 SELECT 0 AS sales_rep_id, 'All' AS sales_rep
 
@@ -37,21 +43,28 @@ AND f.id IN ( SELECT distinct r.loan_id
 )
 ```
 
-+ Parameters (start_date, end_date, office, provider etc.) will be specified on the
-  command line.
+### Job Entry: Setup SQL and get all sales_reps ###
 
-
-### Steps to load configuration file into Variables ###
-The template files maintained externally will be loaded with 'Load file content in memory' Step
-see below:
+The SQL configuration files are maintained externally and will be loaded 
+with 'Load file content in memory' Step, see below:
 
 ```
-  +-----------------------------+      +----------------------------+     +---------------+
-  | Load file content in memory | ---> | Modified Java Script Value | --> | Set Variables |
-  +-----------------------------+      +----------------------------+     +---------------+
+  +-----------------------------+
+  | Load file content in memory | 
+  +-----------------------------+
+                 |
+                 |     +----------------------------+
+                 +---> | Modified Java Script Value |
+                       +----------------------------+
+                                     |
+                                     |     +------------------------+      +---------------------+
+                                     +---> | Execute row SQL script | ---> | Copy rows to result |
+                                           +------------------------+      +---------------------+
+
 ```
 
-In the `Modified Java Script Value` step, we will replace templates with environment
+In the `Modified Java Script Value` step, replace the templates with the environment variables constructed from
+the parameters.
 
 ```
 var new_file_content = file_content.replace(/__START_DATE__/g, getEnvironmentVar("START_DATE"))
@@ -60,32 +73,24 @@ var new_file_content = file_content.replace(/__START_DATE__/g, getEnvironmentVar
                                    .replace(/__OFFICE__/g, getEnvironmentVar("OFFICE"));
 ```
 
-Setup this as a JVM variable so that it can be retrieved in the `Table Input` step in the job.
+The modified SQL will be feed into the `Execute row SQL script` to generate a list of rows
+with id and name of qualified sales_reps. 
 
-**Note:** You can also run 'Copy rows to result' and then later use `Get rows from result` step and 
-`Execute row SQL script` step to run the SQL save in a row field.
 
-### Steps to Run the SQL and get a list of reps ###
-Use the variable defined in JVM from the above steps in `Table Input` step
+### Job Entry: create_pentaho_report ###
+Read the result from the previous transformation, execute every input row so that each sales rep gets
+his/her own report, and then use the standard `Copy rows to result` step to transfer rows of data to 
+the next transformation.
 
-```
-  +-------------+      +---------------------+
-  | Table Input | ---> | Copy rows to result |
-  +-------------+      +---------------------+
-```
-
-### Steps to generate PRPT report ###
-Read the result from the last transform, execute every input row so that each sales rep gets
-his/her own report. 
 ```
   +----------------------+      +----------------------------+      +--------------------------+
   | Get rows from result | ---> | Modified Java Script Value | ---> | Pentaho Reporting Output |
   +----------------------+      +----------------------------+      +--------------------------+
 ```
 
-In `Modified Java Script Value step`, we setup PRPT filename, exported Excel filename and
-all parameters required to run the PRPT reports with proper data type.
-
+In `Modified Java Script Value step`, we finalize all the parameters required to run the PRPT report including
+the PRPT filename, output Excel filename, start_date, end_date, provider etc. and make sure their date types 
+match the corresponding report parameters.
 ```
 var prpt_filename = getEnvironmentVar("rpt_file");
 var p_start_date = str2date(getEnvironmentVar("START_DATE"),"yyyy-MM-dd");
