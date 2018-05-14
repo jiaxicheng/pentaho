@@ -76,6 +76,11 @@ In the `JSON Input` step followed the `YAML Input: field definitions` step:
    +-----------------+-------------+--------+
 
 ```
+**Note:**
+
+The two configuration files can be merged into one, with the `fields` sent into another `YAML Input` step 
+to parse all field-related configurations.
+
 ### ETL Metadata Injection ###
 In the `ETL Metadata Injection` step
 
