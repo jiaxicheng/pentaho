@@ -1,0 +1,39 @@
+## Use the following steps to handle the general data cleaning tasks of fillna() ##
+
+Give the data containing two column c1(string) and c2(integer)
+c1,c2
+A,
+A,1
+A,
+A,2
+A,
+B,3
+B,
+B,
+
+(1) Use the `Formula` step and add one field: 
+   New field: is_c2_null
+   Formula: IF(ISNA([c2]);1;0)   <-- bfill    
+        or  IF(ISNA([c2]);0;0)   <-- ffill
+   Value Type: Integer
+
+(2) Connect it to a `Group by` Step:
+   Group field: c1
+   Aggregates:
+     Name: c2_flag
+     Subject: is_c2_null
+     Type: Cumulative sum
+   Include all rows? <-- enabled
+   The new field c2_flag will be a cumulative sum of is_c2_null based on each group(c1)
+
+(3) Another `Group by` step:
+   Group field: c1 and c2_flag
+   Aggregates:
+     Name: c3
+     Subject: c2
+     Type: First non-null value
+   Include all rows? <-- enabled
+
+Note: all rows are sorted in raw, so no `Sort rows` step is added before the `Group by` step
+
+Example Ktr: https://github.com/jiaxicheng/pentaho/blob/master/files/fillna_with_groupby_step.ktr
