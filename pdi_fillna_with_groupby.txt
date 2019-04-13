@@ -1,4 +1,4 @@
-## Use the following steps to handle the general data cleaning tasks of fillna() ##
+## Use the following steps to handle the general data cleaning tasks of fillna() 
 
 Give the data containing two column c1(string) and c2(integer)
 c1,c2
@@ -11,6 +11,32 @@ B,3
 B,
 B,
 
+### fillna() with mean(), first_non_nul_value() etc
+(1) Use Sort rows + Group by step to create a new field c3 with desired value: mean(), first non-null value etc
+  Include all rows? <-- enabled
+  Group field: c1
+  Aggregates:
+    Name: c3
+    Subject: c2
+    Type: First non-null value
+
+(2) Use `Calculator` step and add 
+  New field: c4
+  Calculation: NVL(A,B)
+  Field A: c2
+  Field B: c3
+  Value Type: integer
+  Remove: N
+
+(3) `Select values` step to remove intermediate fields c3 and rename c4 to c2
+  In "Select & Alter" tab:
+     1. Fieldname: c1
+     2. Fieldname: c4
+        Rename to: c2
+Example Ktr: https://github.com/jiaxicheng/pentaho/blob/master/files/fillna_with_groupby_step.ktr.zip
+
+
+### fillna() using bfill/ffill method
 (1) Use the `Formula` step and add one field: 
    New field: is_c2_null
    Formula: IF(ISNA([c2]);1;0)   <-- bfill    
@@ -18,12 +44,12 @@ B,
    Value Type: Integer
 
 (2) Connect it to a `Group by` Step:
+   Include all rows? <-- enabled
    Group field: c1
    Aggregates:
      Name: c2_flag
      Subject: is_c2_null
      Type: Cumulative sum
-   Include all rows? <-- enabled
    The new field c2_flag will be a cumulative sum of is_c2_null based on each group(c1)
 
 (3) Another `Group by` step:
@@ -36,4 +62,6 @@ B,
 
 Note: all rows are sorted in raw, so no `Sort rows` step is added before the `Group by` step
 
-Example Ktr: https://github.com/jiaxicheng/pentaho/blob/master/files/fillna_with_groupby_step.ktr
+Example Ktr: https://github.com/jiaxicheng/pentaho/blob/master/files/fillna_bfill_ffill_with_groupby_step.ktr.zip
+
+
