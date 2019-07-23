@@ -1,0 +1,109 @@
+https://stackoverflow.com/questions/57110120/how-can-i-create-dynamic-json-data-to-hit-my-rest-client
+
+
+Below is an example KTR to handle the task listed in the above stackoverflow link:
+
+The Ktr file is under the subfolder: 
+
+   files/json_output-nested_data.ktr
+
+Or link: https://github.com/jiaxicheng/pentaho/blob/master/files/json_output-nested_data.ktr
+
+Main steps: https://i.stack.imgur.com/ReuA5.png
+                
+  +-----------------------------+
+  | JSON Output: process phones | <-- Original Input step
+  +-----------------------------+
+                 |
+                 v
+          +-------------+      +--------------------------------+
+          | JSON Output |  --> | JSON Input: retrieve $.data[0] |
+          +-------------+      +--------------------------------+
+                                                |
+                                                V
+                                +---------------------------------+      +---------------+
+                                | Replace in string: merge phones |  --> | Select values |
+                                +---------------------------------+      +---------------+
+
+JSON Output step: process phones
+---------------------------
+In the first JSON Output step, set up the following
+https://i.stack.imgur.com/DNpr1.png
+
+  + in the **General** Tab, set the following:
+    - Operation: Output value
+    - Json bloc name: phones
+    - Nr rows in a bloc: 1
+    - Output Value: phones
+  + In the **Fields** tab
+    Add two fields: `number` and `phoneType`
+
+The new field `phones` after this step is:
+
+    {"phones":[{"number":123456.0,"phoneType":"PRIMARY"}]}
+
+
+----------
+
+
+JSON Output step:
+-----------------
+do the similar to the above step except the following: 
+
+> * In **General** tab, set *Json bloc name* = `data`, *Output Value* = `outputValue`
+> * In **Fields** tab, add the fields `firstName`, `lastName`, `birthDate` and `email`
+
+The new field called `outputValue` added from this step is: 
+
+    {"data":[{"firstName":"himanshi","lastName":"joshi","birthDate":"1997-07-24","email":"hj@test.com"}]}
+
+**Note:** you should not retrieve and add phones into the JSON output here since the nested data structure will become a single String value in the final output.
+
+
+----------
+
+
+JSON Input step: retrieve $.data[0]
+------------------------------
+As labelled in the Step name, we use JSON Input step to retrieve $.data[0] from the field `outputValue`, so it becomes:
+
+    {"firstName":"himanshi","lastName":"joshi","birthDate":"1997-07-24","email":"hj@test.com"}
+
+Do the following in this step:
+> * In **File** tab: select `Source is from a previous step` and *Select field* = `outputValue`
+> * In **Fields** tab, add a new field: *Name* = `rest_client_data` and *Path* = `$.data[0]`
+
+
+----------
+
+
+Replace in string step: merge phones
+-------------------------------
+Use the `Replace in string` step to merge two JSON strings: `phones` and `rest_client_data`.
+https://i.stack.imgur.com/05jaz.png
+
+Basically, it replaces the leading brace `{` of phones with a `comma` and then replaces the trailing `}` of rest_client_data with the updated `phones`
+
++------------------+-----------+--------+--------------+--------------------+
+| In stream field  | use RegEx | Search | Replace with | Replace with field |
++------------------+-----------+--------+--------------+--------------------+
+| phones           | Y         | ^\{    | ,            |                    |
+| rest_client_data | Y         | \}$    |              | phones             |
++------------------+-----------+--------+--------------+--------------------+
+
+
+----------
+
+
+Select values step
+-------------
+To keep only the needed field: `rest_client_data`
+
+    {"firstName":"himanshi","lastName":"joshi","birthDate":"1997-07-24","email":"hj@test.com","phones":[{"number":123456.0,"phoneType":"PRIMARY"}]}
+
+Images reference in stackoverflow
+  [1]: https://i.stack.imgur.com/ReuA5.png
+  [2]: https://i.stack.imgur.com/DNpr1.png
+  [3]: https://i.stack.imgur.com/05jaz.png
+
+
